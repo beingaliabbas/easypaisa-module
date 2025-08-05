@@ -41,20 +41,6 @@
                     <input type="number" class="form-control square" name="payment_params[max]" value="<?php echo (!empty($payment->max))? $payment->max : '' ; ?>">
                   </div>
                 </div>
-                
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <label class="form-label" ><?php echo lang("Account_Number"); ?></label>
-                    <input type="number" class="form-control square" name="payment_params[number]" value="<?php echo (!empty($payment->min))? $payment->min : '' ; ?>">
-                  </div>
-                </div>
-               
-               <div class="col-md-6">
-                  <div class="form-group">
-                    <label class="form-label" ><?php echo lang("Holder_Name"); ?></label>
-                    <input type="text" class="form-control square" name="payment_params[holder]" value="<?php echo (!empty($payment->min))? $payment->min : '' ; ?>">
-                  </div>
-                </div>
                
                 <div class="col-md-6">
                   <div class="form-group">
@@ -94,12 +80,27 @@
                  
                 <div class="col-md-12">
                   <hr>
+
                   <div class="form-group">
-                    <label class="form-label">Curency Code</label>
-                    <select name="payment_params[option][currency_code]" class="form-control square ajaxChangeCurrencyCode">
-                      <option value="USD" <?=(isset($option->currency_code) && $option->currency_code == 'USD')? "selected" : ''?>>USD - US Dollar</option>
-                      <option value="PKR" <?=(isset($option->currency_code) && $option->currency_code == 'PKR')? "selected" : ''?>>PKR - Pakistan Rupee</option>
-                    </select>
+                    <label class="form-label">Account Title</label>
+                    <input class="form-control" name="payment_params[option][title]" value="<?php echo (isset($option->title)) ? $option->title : ''; ?>">
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label">Account Number</label>
+                    <input class="form-control" name="payment_params[option][number]" value="<?php echo (isset($option->number)) ? $option->number : ''; ?>">
+                  </div>
+
+                  <hr>
+
+                  <div class="form-group">
+                    <label class="form-label"> Gmail (your gmail id registered on SMS Forwarder)</label>
+                    <input class="form-control" name="payment_params[option][gmail]" value="<?php echo (isset($option->gmail)) ? $option->gmail : ''; ?>">
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label"> Gmail password</label>
+                    <input class="form-control" name="payment_params[option][gmail_password]" type="password" value="<?php echo (isset($option->gmail_password)) ? $option->gmail_password : ''; ?>">
                   </div>
 
                   <div class="form-group">
@@ -108,21 +109,27 @@
                       <span class="input-group-prepend">
                         <span class="input-group-text">1USD =</span>
                       </span>
-                      <input type="text" class="form-control text-right" name="payment_params[option][rate_to_usd]" value="<?php echo (isset($option->rate_to_usd)) ? $option->rate_to_usd : 168; ?>">
+                      <input type="text" class="form-control text-right" name="payment_params[option][rate_to_usd]" value="<?php echo (isset($option->rate_to_usd)) ? $option->rate_to_usd : 76; ?>">
                       <span class="input-group-append">
-                        <span class="input-group-text new-currency-code"><?php echo (isset($option->currency_code)) ? $option->currency_code : ''; ?></span>
+                        <span class="input-group-text">INR</span>
                       </span>
                     </div>
                   </div>
 
                   <div class="form-group">
-                    <label class="form-label text-danger">Note:</label>
-                    <ul>
-                      <li>you have need to accept Transection from admin setting</li>
-                      <li>put your account details</li>
-                      <li>Copy <strong>Manually</strong> check <strong>transction</strong> and Save</li>
-                    </ul>
+                    <div class="form-group">
+                      <span class="text-danger"><strong><?=lang('note')?></strong></span>
+                      <ul class="small">
+                        <li> Enable access to less secure apps and unlock captcha for your Google account using:
+                            <ol>
+                              <li><a href="https://www.google.com/settings/security/lesssecureapps">https://www.google.com/settings/security/lesssecureapps</a></li>
+                              <li><a href="https://accounts.google.com/b/0/DisplayUnlockCaptcha.">https://accounts.google.com/b/0/DisplayUnlockCaptcha.</a></li>
+                            </ol>
+                        </li>
+                      </ul>
+                    </div>
                   </div>
+
                 </div>
 
               </div>
@@ -137,11 +144,3 @@
     </div>
   </div>
 </div>
-
-<script>
-  $(document).on("change",".ajaxChangeCurrencyCode", function(){
-    var _that = $(this),
-        _type = _that.val();
-    $(".new-currency-code").html(_type);
-  });
-</script>
